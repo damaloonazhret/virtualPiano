@@ -1,6 +1,7 @@
 const audio = new Audio('../images/audio/a.mp3');
 const buttons = document.querySelectorAll('.piano-key');
-const html = document.querySelector('.piano');
+const html = document.querySelector('html');
+const pianoBlock = document.querySelector('.piano');
 
 function playNote(e) {
     // console.log(e.target);
@@ -49,19 +50,19 @@ function playMusic(e) {
     });
 }
 
-html.addEventListener('mousedown', function () {
-    html.addEventListener('mousemove', playMusic);
+pianoBlock.addEventListener('mousedown', function () {
+    pianoBlock.addEventListener('mousemove', playMusic);
 });
 
-html.addEventListener('click', function () {
-    html.addEventListener('click', playMusic);
+pianoBlock.addEventListener('click', function () {
+    pianoBlock.addEventListener('click', playMusic);
 });
 
 html.addEventListener('mouseup', e => {
-    html.removeEventListener('mousemove', playMusic);
+    pianoBlock.removeEventListener('mousemove', playMusic);
     mouseButton = '';
 });
-html.addEventListener('mouseout', e => {
+pianoBlock.addEventListener('mouseout', e => {
     // window.removeEventListener('mousemove', playMusic);
     mouseButton = '';
     activeBtn(e.target.dataset.key);
