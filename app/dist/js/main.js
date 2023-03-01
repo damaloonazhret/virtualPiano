@@ -19,7 +19,7 @@ function playNote(e) {
     // console.log(keyNote);
     // console.log(audioNote);
 
-    
+
 }
 
 function activeBtn(e) {
@@ -60,6 +60,7 @@ pianoBlock.addEventListener('click', function () {
 
 html.addEventListener('mouseup', e => {
     pianoBlock.removeEventListener('mousemove', playMusic);
+    // activeBtn(e.target.dataset.key);
     mouseButton = '';
 });
 pianoBlock.addEventListener('mouseout', e => {
@@ -67,6 +68,16 @@ pianoBlock.addEventListener('mouseout', e => {
     mouseButton = '';
     activeBtn(e.target.dataset.key);
 });
+
+document.addEventListener('click', function (event) {
+    if (!event.target.hasAttribute('data-toggle-fullscreen')) return;
+    if (document.fullscreenElement) {
+        document.exitFullscreen();
+    } else {
+        document.documentElement.requestFullscreen();
+    }
+
+}, false);
 
 
 let pressingButton = '';
