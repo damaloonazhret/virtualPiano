@@ -144,6 +144,11 @@ body {
     transition: 0.3s;
     pointer-events: none;
 }
+
+.piano-key.active-letter::before,
+.piano-key.active-letter::after {
+    content: attr(data-letter);
+}
 .piano-key::after {
     display: none;
     content: attr(data-letter);
