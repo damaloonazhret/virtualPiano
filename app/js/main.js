@@ -87,9 +87,6 @@ body.addEventListener('keydown', e => {
         if (el == e.keyCode) {
             switch (e.keyCode) {
                 case e.keyCode: {
-                    if (pressingButton == null) {
-                        return;
-                    }
                     if (pressingButton !== e.keyCode) {
                         pressingButton = e.keyCode;
                         playNote(pressingButton);
