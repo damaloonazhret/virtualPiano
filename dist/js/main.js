@@ -3,12 +3,8 @@ const pianoKeys = document.querySelectorAll('.piano-key');
 const pianoBlock = document.querySelector('.piano');
 const changeBtn = document.querySelectorAll('.btn');
 const btnContainer = document.querySelector('.btn-container');
-const keyValeue = [];
+const audioKeys = document.querySelectorAll(`audio`);
 
-// create array of data-key
-pianoKeys.forEach(el => {
-    keyValeue.push(el.getAttribute('data-key'));
-});
 
 // change letter of notes
 btnContainer.addEventListener('click', function (e) {
@@ -24,11 +20,17 @@ btnContainer.addEventListener('click', function (e) {
 });
 
 function playNote(keyCode) {
-    const key = document.querySelector(`.piano-key[data-key="${keyCode}"]`);
-    const audioKey = document.querySelector(`audio[data-key="${keyCode}"]`);
-    key.classList.add('piano-key-active');
-    audioKey.currentTime = 0;
-    audioKey.play();
+    pianoKeys.forEach(el => {
+        if (el.dataset.key == keyCode) {
+            el.classList.add('piano-key-active');
+        }
+    });
+    audioKeys.forEach(el => {
+        if (el.dataset.key == keyCode) {
+            el.currentTime = 0;
+            el.play();
+        }
+    });
 }
 
 // search active keys
@@ -48,14 +50,9 @@ let mouseButton = '';
 const playMusic = (e) => {
     pianoKeys.forEach(el => {
         if (e.target === el) {
-            switch (e.target.dataset.key) {
-                case e.target.dataset.key: {
-                    if (mouseButton !== e.target.dataset.key) {
-                        mouseButton = e.target.dataset.key;
-                        playNote(mouseButton);
-                    }
-                    break;
-                }
+            if (mouseButton !== e.target.dataset.key) {
+                mouseButton = e.target.dataset.key;
+                playNote(mouseButton);
             }
         }
     });
@@ -83,16 +80,11 @@ let pressingButton = '';
 
 // blocking the endless button press, check appropriate value and play piano key :)
 body.addEventListener('keydown', e => {
-    keyValeue.forEach(el => {
-        if (el == e.keyCode) {
-            switch (e.keyCode) {
-                case e.keyCode: {
-                    if (pressingButton !== e.keyCode) {
-                        pressingButton = e.keyCode;
-                        playNote(pressingButton);
-                    }
-                    break;
-                }
+    pianoKeys.forEach(el => {
+        if (el.getAttribute('data-key') == e.keyCode) {
+            if (pressingButton !== e.keyCode) {
+                pressingButton = e.keyCode;
+                playNote(pressingButton);
             }
         }
     });
@@ -101,8 +93,8 @@ body.addEventListener('keydown', e => {
 document.addEventListener('keyup', e => {
     //clearing the value and remove active key
     pressingButton = '';
-    keyValeue.forEach(el => {
-        if (el == e.keyCode) {
+    pianoKeys.forEach(el => {
+        if (el.getAttribute('data-key') == e.keyCode) {
             activeBtn(e.keyCode);
         }
     });
